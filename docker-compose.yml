@@ -1,0 +1,26 @@
+services:
+  app:
+  
+    # 1. DEFINE the exact image to look for:
+    image: uv-nvidia-template:v0.0.1
+    
+    container_name: my-dev-container
+    
+    # 2. RUNTIME CONFIGURATION
+    # Since we removed 'sleep infinity' from the Dockerfile, we need it here
+    # to keep the container alive for development.
+    command: sleep infinity
+    
+    # 3. mounting
+    volumes:
+      # Mount code live so you can edit without rebuilding
+      - .:/app
+      # Optional: Mount venv for IDE autocompletion visibility
+      - ./.venv_docker:/opt/venv
+      
+    environment:
+      - VIRTUAL_ENV=/opt/venv
+    
+    # gpu setting
+    gpus: all # still works when there are no gpus available
+    #gpus: ["device=0,1"] # when to selectively choose gpus

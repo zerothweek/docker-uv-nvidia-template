@@ -1,0 +1,84 @@
+[project]
+name = "docker-uv-nvidia-template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+
+# BASE: Absolute Essentials (Config & Logging only)
+# Keeps the environment lightweight for simple scripts.
+dependencies = [
+    "python-dotenv>=1.2.1",
+    "pyyaml>=6.0.3",
+    "tqdm>=4.67.1",
+]
+
+# GROUPS: Categorized Workflows
+[dependency-groups]
+
+# Group: Data Engineering
+data = [
+    "fastparquet>=2024.11.0",
+    "pandas>=2.3.3",
+    "polars>=1.35.2",
+    "pyarrow>=22.0.0",
+]
+
+# Group: Database Connectivity
+db = [
+    "pymysql[rsa]>=1.1.2",
+    "sqlalchemy>=2.0.44",
+]
+
+# Group: Exploratory Data Analysis
+eda = [
+    "matplotlib>=3.10.7",
+    "seaborn>=0.13.2",
+]
+
+# Group: Classical Machine Learning
+ml = [
+    "scikit-learn>=1.5.2",
+]
+
+# Group: Deep Learning (Torch Ecosystem)
+dl = [
+    "torch",
+    "torchvision",
+]
+
+# Group: LLM
+llm = [
+    "accelerate>=1.1.0",
+    "bitsandbytes>=0.44.1",
+    "transformers>=4.46.0",
+]
+
+# Group: Development Tools
+dev = [
+    "ipykernel>=7.1.0",
+]
+
+# SMART CONFIGURATION: Handle CPU vs GPU automatically
+# Logic: If Linux -> Use CUDA Index. If Not Linux (Mac/Win) -> Use CPU Index.
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu126", marker = "sys_platform == 'linux'" },
+    { index = "pytorch-cpu", marker = "sys_platform != 'linux'" },
+]
+torchvision = [
+    { index = "pytorch-cu126", marker = "sys_platform == 'linux'" },
+    { index = "pytorch-cpu", marker = "sys_platform != 'linux'" },
+]
+
+# Source 1: CUDA 12.6 (Linux Default)
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+# Source 2: CPU (Mac/Windows Default)
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
