@@ -16,3 +16,10 @@ __pycache__/
 docs/
 tests/
 README.md
+
+# 5. development environment related files
+.dockerignore
+.python-version
+docker-compose.template.yml
+docker-compose.yml
+Dockerfile
