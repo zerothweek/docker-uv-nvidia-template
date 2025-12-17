@@ -15,8 +15,8 @@ services:
     volumes:
       # Mount code live so you can edit without rebuilding
       - ./src:/app/src
-      - ./pyproject.toml:/app
-      - ./uv.lock:/app 
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./uv.lock:/app/uv.lock
 
     environment:
       - VIRTUAL_ENV=/opt/venv
