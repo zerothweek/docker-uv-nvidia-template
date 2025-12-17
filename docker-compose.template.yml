@@ -19,13 +19,13 @@ services:
     environment:
       - VIRTUAL_ENV=/opt/venv
     
-    # # gpu setting
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           # 1. Use 'device_ids' to pin specific GPUs by index (strings)
-    #           device_ids: ['0'] 
-    #           # 2. explicit 'capabilities' are required
-    #           capabilities: [gpu]
+    # gpu setting
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              # 1. Use 'device_ids' to pin specific GPUs by index (strings)
+              device_ids: ['0'] 
+              # 2. explicit 'capabilities' are required
+              capabilities: [gpu]

@@ -4,7 +4,10 @@
     uv init --python 3.12
     ```
 2. write `pyproject.toml` 
-
+    ```
+    # requires-python = "==3.12.*"
+    use the above line to make the uv project to exactly use a specific python version
+    ```
 3. write `Dockerfile`
 
 4. write `.gitignore` and `.dockerignore`
@@ -19,7 +22,7 @@
     ```
 6. write the `docker-compose.yml` accordingly
 
-7. commit and make the first tag for version v0.0.1
+7. commit and make the first tag for version v0.0.1 then push
     If you didn't add the github remote origin yet then the below lines first.
     ```bash
     git branch -M main
@@ -40,11 +43,12 @@
 1. inside the running container add and test the package first
     ```bash
     docker exec -it my-dev-container bash
-    uv add pandas
+    uv add pandas --dependency-group data
     # check if things work ...
     exit
     ```
     Result: since of the mount, your local `pyproject.toml` and `uv.lock` are now updated
+    
 
 2. build the new docker image version
     ```bash
@@ -88,4 +92,3 @@
     ```bash
     git push origin main --tags
     ```
-

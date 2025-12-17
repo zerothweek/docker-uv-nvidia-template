@@ -23,3 +23,6 @@ venv/
 # 5. IDE Settings
 .vscode/
 .idea/
+
+# 6. docker
+docker-compose.yml
